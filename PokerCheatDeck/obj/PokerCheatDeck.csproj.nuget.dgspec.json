@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "F:\\Workspace2\\WFA_Project\\PokerTest\\PokerTest\\PokerCheatDeck.csproj": {}
+    "F:\\Workspace2\\WFA_Project\\PokerCheatDeck\\PokerCheatDeck\\PokerCheatDeck.csproj": {}
   },
   "projects": {
-    "F:\\Workspace2\\WFA_Project\\PokerTest\\PokerTest\\PokerCheatDeck.csproj": {
+    "F:\\Workspace2\\WFA_Project\\PokerCheatDeck\\PokerCheatDeck\\PokerCheatDeck.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "F:\\Workspace2\\WFA_Project\\PokerTest\\PokerTest\\PokerCheatDeck.csproj",
+        "projectUniqueName": "F:\\Workspace2\\WFA_Project\\PokerCheatDeck\\PokerCheatDeck\\PokerCheatDeck.csproj",
         "projectName": "PokerCheatDeck",
-        "projectPath": "F:\\Workspace2\\WFA_Project\\PokerTest\\PokerTest\\PokerCheatDeck.csproj",
+        "projectPath": "F:\\Workspace2\\WFA_Project\\PokerCheatDeck\\PokerCheatDeck\\PokerCheatDeck.csproj",
         "packagesPath": "C:\\Users\\唐秋\\.nuget\\packages\\",
-        "outputPath": "F:\\Workspace2\\WFA_Project\\PokerTest\\PokerTest\\obj\\",
+        "outputPath": "F:\\Workspace2\\WFA_Project\\PokerCheatDeck\\PokerCheatDeck\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\唐秋\\AppData\\Roaming\\NuGet\\NuGet.Config",

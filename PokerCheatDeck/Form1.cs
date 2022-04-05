@@ -23,5 +23,18 @@ namespace PokerTest
 
             rtb_main.ScrollToCaret();
         }
+
+        private void btn_openFile_Click(object sender, EventArgs e)
+        {
+
+            this.dlg_openFileDialog.ShowDialog();
+            this.tx_filePath.Text = dlg_openFileDialog.FileName;
+        }
+
+        private void btn_savePath_Click(object sender, EventArgs e)
+        {
+            this.dlg_saveFileDialog.ShowDialog();
+            this.tx_savePath.Text = dlg_saveFileDialog.FileName;
+        }
     }
 }

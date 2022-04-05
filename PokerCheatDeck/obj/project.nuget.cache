@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "PRUo7Unfags7uTlA4MnP6NWN0sQrArzYBGvoFRYM9f+dNtlhC8C8Di9bXwwAbdqDhKYNLlwLYn/oiDoQpzq0IQ==",
+  "dgSpecHash": "HMCBsS+WJGqo4YdzlFndvRF86Mv/UxaPJj6zwRawptv/nZYzPJqBOTaubdg5JYHMeR1642oEusH5aZIfmz4xhw==",
   "success": true,
-  "projectFilePath": "F:\\Workspace2\\WFA_Project\\PokerTest\\PokerTest\\PokerCheatDeck.csproj",
+  "projectFilePath": "F:\\Workspace2\\WFA_Project\\PokerCheatDeck\\PokerCheatDeck\\PokerCheatDeck.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\唐秋\\.nuget\\packages\\closedxml\\0.95.4\\closedxml.0.95.4.nupkg.sha512",
     "C:\\Users\\唐秋\\.nuget\\packages\\documentformat.openxml\\2.7.2\\documentformat.openxml.2.7.2.nupkg.sha512",
