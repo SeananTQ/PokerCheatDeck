@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 using ClosedXML;
 using ClosedXML.Excel;
 
-namespace ExcelHelper
+namespace ExcelTools
 {
     public  class ExcelHelper
     {
-        string resultString = "";
+        public string resultString = "";
         private string importExcelPath = "E:\\import.xlsx";
         private string exportExcelPath = "E:\\export.xlsx";
 
@@ -35,27 +35,27 @@ namespace ExcelHelper
         
         }
 
-        public void OpenExcel(string path)
+        public void OpenExcel()
         {
-            workbook = new XLWorkbook(path);
+            workbook = new XLWorkbook(importExcelPath);
             worksheet = workbook.Worksheet(1);
         }
 
         public void CloseExcel()
         {
-            workbook.SaveAs(ExportExcelPath);
+            workbook.SaveAs(exportExcelPath);
             workbook.Dispose();
         }
 
         public void ImportExcel()
         {
-            var rowCount = worksheet.RowCount();
-            var colCount = worksheet.ColumnCount();
+            var rowCount = worksheet.RowsUsed().Count();
+            var colCount = worksheet.ColumnsUsed().Count();
             for (int i = 1; i <= rowCount; i++)
             {
                 for (int j = 1; j <= colCount; j++)
                 {
-                    resultString += worksheet.Cell(i, j).Value.ToString() + " ";
+                    resultString += worksheet.Cell(i, j).Value.ToString() + "|";
                 }
                 resultString += "\n";
             }

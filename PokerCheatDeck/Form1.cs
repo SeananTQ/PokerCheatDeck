@@ -7,11 +7,14 @@ namespace PokerTest
     public partial class Form1 : Form
     {
         public HandLogic handLogic;
+
+        public ExcelTestLogic excelTestLogic;
         public Form1()
         {
             InitializeComponent();
 
-            handLogic = new HandLogic();
+            handLogic = new ();
+            excelTestLogic = new();
         }
 
         private void btn_star_Click(object sender, EventArgs e)
@@ -36,6 +39,17 @@ namespace PokerTest
         {
             this.dlg_saveFileDialog.ShowDialog();
             this.tb_savePath.Text = dlg_saveFileDialog.FileName;
+        }
+
+        private void btn_testExcel_Click(object sender, EventArgs e)
+        {
+            rtb_main.Clear();
+
+            
+            excelTestLogic.Star(this.tb_loadPath.Text,this.tb_savePath.Text);
+            rtb_main.AppendText("=====Start======\r\n" + DebugClass.Text);
+
+            rtb_main.ScrollToCaret();
         }
     }
 }

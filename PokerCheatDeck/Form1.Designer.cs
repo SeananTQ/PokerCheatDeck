@@ -67,6 +67,7 @@
             this.btn_testExcel.TabIndex = 3;
             this.btn_testExcel.Text = "TestExcel";
             this.btn_testExcel.UseVisualStyleBackColor = true;
+            this.btn_testExcel.Click += new System.EventHandler(this.btn_testExcel_Click);
             // 
             // btn_openFile
             // 
