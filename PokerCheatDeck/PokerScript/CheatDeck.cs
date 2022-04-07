@@ -85,6 +85,37 @@ namespace TexasHoldem
             return card;
         }
 
+        //在HandRankType中随机一项，然后调用对应方法，并返回该方法的返回值
+        public IList<Card> GetRandomHandType(int cardCount)
+        {
+            var handType = (HandRankType)new Random().Next(0, 10);
+            switch (handType)
+            {
+                case HandRankType.HIGH_CARD:
+                    return this.GetHighCards(cardCount);
+                case HandRankType.PAIR:
+                    return this.Get2KindCards(cardCount);
+                case HandRankType.TWO_PAIR:
+                    return this.GetTwoPairsCards(cardCount);
+                case HandRankType.THREE_OF_A_KIND:
+                    return this.Get3KindCards(cardCount);
+                case HandRankType.STRAIGHT:
+                    return this.GetStraightCards(cardCount);
+                case HandRankType.FLUSH:
+                    return this.GetFlushCards(cardCount);
+                case HandRankType.FULL_HOUSE:
+                    return this.GetFullHouseCards(cardCount);
+                case HandRankType.FOUR_OF_A_KIND:
+                    return this.Get4KindCards(cardCount);
+                case HandRankType.STRAIGHT_FLUSH:
+                    return this.GetStraightFlushCards(cardCount);
+                case HandRankType.ROYAL_FLUSH:
+                    return this.GetRoyalFlushCards(cardCount);
+                default:
+                    return this.GetHighCards(cardCount);
+            }
+        }
+
 
         //随机生成一个狗狗牌，黑名单中的不会被随机到
         public Card GetDogCard(IList<Card>? blackList = null)
@@ -191,15 +222,15 @@ namespace TexasHoldem
             IList<Card> result = new List<Card>();
             result.Add(this.dogCard);
             result = FillCardList(result, 5);
-            foreach(var v in  result)
+            foreach (var v in result)
             {
-                v.Suit = this.dogCard.Suit;  
+                v.Suit = this.dogCard.Suit;
             }
             result = FillCardList(result, cardCount);
             return result;
         }
 
-        
+
 
 
 
@@ -279,12 +310,12 @@ namespace TexasHoldem
         {
             List<Card> result = new();
             InitCardList();
-            List<CardSuit> blackList_suit=new();
+            List<CardSuit> blackList_suit = new();
             List<CardNumber> blackList_number = new();
 
             foreach (var v in cards)
             {
-                blackList_number.Add(v.Number);            
+                blackList_number.Add(v.Number);
             }
             cards = cards.OrderBy(x => x.Number).ToList();
             int tempIndex1 = AllCardNumbers.IndexOf(cards.First().Number);
@@ -305,7 +336,7 @@ namespace TexasHoldem
                 var tempCard = new Card(blackList_suit.GetRandomElement(), blackList_number.GetRandomElement());
                 result.Add(tempCard);
                 blackList_number.Remove(tempCard.Number);
-            }            
+            }
             result.AddRange(cards);
             return result;
         }
@@ -390,5 +421,7 @@ namespace TexasHoldem
             return result;
         }
 
+
     }
 }
+        

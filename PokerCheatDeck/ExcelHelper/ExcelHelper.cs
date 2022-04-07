@@ -11,26 +11,57 @@ namespace ExcelHelper
     public  class ExcelHelper
     {
         string resultString = "";
-        string importExcelPath = "E:\\import.xlsx";
-        string exportExcelPath = "E:\\export.xlsx";
+        private string importExcelPath = "E:\\import.xlsx";
+        private string exportExcelPath = "E:\\export.xlsx";
+
+        public string ImportExcelPath
+        {
+            get { return importExcelPath; }
+            set { importExcelPath = value; }
+        }
+
+        public string ExportExcelPath
+        {
+            get { return exportExcelPath; }
+            set { exportExcelPath = value; }
+        }
+
+        private IXLWorkbook workbook;
+        private IXLWorksheet worksheet;
+        
 
         public ExcelHelper()
         { 
         
         }
 
-        private void ExcelTest()
+        public void OpenExcel(string path)
         {
-
-            var workbook = new XLWorkbook(importExcelPath);
-
-            IXLWorksheet sheet = workbook.Worksheet(1);//这个库也是从1开始
-                                                       //设置第一行第一列值,更多方法请参考官方Demo
-                                                       //sheet.Cell(1, 1).Value = "test";//该方法也是从1开始，非0
-
-            resultString = "" + sheet.Cell(1, 3).GetValue<int>();
-            workbook.SaveAs(exportExcelPath);
+            workbook = new XLWorkbook(path);
+            worksheet = workbook.Worksheet(1);
         }
+
+        public void CloseExcel()
+        {
+            workbook.SaveAs(ExportExcelPath);
+            workbook.Dispose();
+        }
+
+        public void ImportExcel()
+        {
+            var rowCount = worksheet.RowCount();
+            var colCount = worksheet.ColumnCount();
+            for (int i = 1; i <= rowCount; i++)
+            {
+                for (int j = 1; j <= colCount; j++)
+                {
+                    resultString += worksheet.Cell(i, j).Value.ToString() + " ";
+                }
+                resultString += "\n";
+            }
+        }       
+        
+
 
     }
 }

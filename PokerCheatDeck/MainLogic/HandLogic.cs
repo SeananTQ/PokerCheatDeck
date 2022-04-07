@@ -26,7 +26,7 @@ namespace  MainLogic
         public void Show()
         {
 
-            DebugClass.Log(cheatDeck.GetHighCards
+            DebugClass.Log(cheatDeck.GetRandomHandType
                 (7).ToFriendlyString()+"\r\n");
 
         }

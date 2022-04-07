@@ -32,11 +32,13 @@
             this.rtb_main = new System.Windows.Forms.RichTextBox();
             this.btn_testExcel = new System.Windows.Forms.Button();
             this.btn_openFile = new System.Windows.Forms.Button();
-            this.tx_filePath = new System.Windows.Forms.Label();
+            this.tx_loadPath = new System.Windows.Forms.Label();
             this.dlg_openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.tx_savePath = new System.Windows.Forms.Label();
             this.btn_savePath = new System.Windows.Forms.Button();
             this.dlg_saveFileDialog = new System.Windows.Forms.SaveFileDialog();
+            this.tb_loadPath = new System.Windows.Forms.TextBox();
+            this.tb_savePath = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // btn_star
@@ -68,22 +70,22 @@
             // 
             // btn_openFile
             // 
-            this.btn_openFile.Location = new System.Drawing.Point(237, 323);
+            this.btn_openFile.Location = new System.Drawing.Point(461, 294);
             this.btn_openFile.Name = "btn_openFile";
             this.btn_openFile.Size = new System.Drawing.Size(75, 23);
             this.btn_openFile.TabIndex = 4;
-            this.btn_openFile.Text = "打开";
+            this.btn_openFile.Text = "选择";
             this.btn_openFile.UseVisualStyleBackColor = true;
             this.btn_openFile.Click += new System.EventHandler(this.btn_openFile_Click);
             // 
-            // tx_filePath
+            // tx_loadPath
             // 
-            this.tx_filePath.AutoSize = true;
-            this.tx_filePath.Location = new System.Drawing.Point(12, 328);
-            this.tx_filePath.Name = "tx_filePath";
-            this.tx_filePath.Size = new System.Drawing.Size(97, 17);
-            this.tx_filePath.TabIndex = 5;
-            this.tx_filePath.Text = "请选择载入Excel";
+            this.tx_loadPath.AutoSize = true;
+            this.tx_loadPath.Location = new System.Drawing.Point(12, 297);
+            this.tx_loadPath.Name = "tx_loadPath";
+            this.tx_loadPath.Size = new System.Drawing.Size(97, 17);
+            this.tx_loadPath.TabIndex = 5;
+            this.tx_loadPath.Text = "请选择载入Excel";
             // 
             // dlg_openFileDialog
             // 
@@ -92,7 +94,7 @@
             // tx_savePath
             // 
             this.tx_savePath.AutoSize = true;
-            this.tx_savePath.Location = new System.Drawing.Point(11, 372);
+            this.tx_savePath.Location = new System.Drawing.Point(12, 327);
             this.tx_savePath.Name = "tx_savePath";
             this.tx_savePath.Size = new System.Drawing.Size(92, 17);
             this.tx_savePath.TabIndex = 6;
@@ -100,7 +102,7 @@
             // 
             // btn_savePath
             // 
-            this.btn_savePath.Location = new System.Drawing.Point(237, 369);
+            this.btn_savePath.Location = new System.Drawing.Point(461, 327);
             this.btn_savePath.Name = "btn_savePath";
             this.btn_savePath.Size = new System.Drawing.Size(75, 23);
             this.btn_savePath.TabIndex = 7;
@@ -108,14 +110,30 @@
             this.btn_savePath.UseVisualStyleBackColor = true;
             this.btn_savePath.Click += new System.EventHandler(this.btn_savePath_Click);
             // 
+            // tb_loadPath
+            // 
+            this.tb_loadPath.Location = new System.Drawing.Point(115, 294);
+            this.tb_loadPath.Name = "tb_loadPath";
+            this.tb_loadPath.Size = new System.Drawing.Size(340, 23);
+            this.tb_loadPath.TabIndex = 8;
+            // 
+            // tb_savePath
+            // 
+            this.tb_savePath.Location = new System.Drawing.Point(115, 327);
+            this.tb_savePath.Name = "tb_savePath";
+            this.tb_savePath.Size = new System.Drawing.Size(340, 23);
+            this.tb_savePath.TabIndex = 9;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.tb_savePath);
+            this.Controls.Add(this.tb_loadPath);
             this.Controls.Add(this.btn_savePath);
             this.Controls.Add(this.tx_savePath);
-            this.Controls.Add(this.tx_filePath);
+            this.Controls.Add(this.tx_loadPath);
             this.Controls.Add(this.btn_openFile);
             this.Controls.Add(this.btn_testExcel);
             this.Controls.Add(this.rtb_main);
@@ -133,10 +151,12 @@
         private RichTextBox rtb_main;
         private Button btn_testExcel;
         private Button btn_openFile;
-        private Label tx_filePath;
+        private Label tx_loadPath;
         private OpenFileDialog dlg_openFileDialog;
         private Label tx_savePath;
         private Button btn_savePath;
         private SaveFileDialog dlg_saveFileDialog;
+        private TextBox tb_loadPath;
+        private TextBox tb_savePath;
     }
 }
