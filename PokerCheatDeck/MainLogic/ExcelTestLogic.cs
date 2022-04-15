@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ExcelTools;
 using SeananTools;
+using PokerExcel;
 
 namespace MainLogic
 {
@@ -15,7 +16,7 @@ namespace MainLogic
 
         public ExcelTestLogic()
         {
-            excelHelper = new ExcelHelper();            
+            excelHelper = new();            
         }
         
        public void  Star(string loadPath,string savePath)
@@ -24,8 +25,11 @@ namespace MainLogic
             excelHelper.ExportExcelPath=savePath;
 
             excelHelper.OpenExcel();
+            excelHelper.LoadSheet();
 
-            excelHelper.ImportExcel();
+            TableBaseClass rankingTabel = new("Test");
+            excelHelper.BuildTabel(ref rankingTabel);
+            //excelHelper.ImportExcelToString();
 
             excelHelper.CloseExcel();
 

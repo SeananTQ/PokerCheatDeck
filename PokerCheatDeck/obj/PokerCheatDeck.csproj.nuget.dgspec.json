@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "E:\\Library\\Documents\\GitHub\\PokerCheatDeck\\PokerCheatDeck\\PokerCheatDeck.csproj": {}
+    "D:\\Workspace\\WinFromsProject\\PokerChatDeck\\PokerCheatDeck\\PokerCheatDeck.csproj": {}
   },
   "projects": {
-    "E:\\Library\\Documents\\GitHub\\PokerCheatDeck\\PokerCheatDeck\\PokerCheatDeck.csproj": {
+    "D:\\Workspace\\WinFromsProject\\PokerChatDeck\\PokerCheatDeck\\PokerCheatDeck.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\Library\\Documents\\GitHub\\PokerCheatDeck\\PokerCheatDeck\\PokerCheatDeck.csproj",
+        "projectUniqueName": "D:\\Workspace\\WinFromsProject\\PokerChatDeck\\PokerCheatDeck\\PokerCheatDeck.csproj",
         "projectName": "PokerCheatDeck",
-        "projectPath": "E:\\Library\\Documents\\GitHub\\PokerCheatDeck\\PokerCheatDeck\\PokerCheatDeck.csproj",
-        "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
-        "outputPath": "E:\\Library\\Documents\\GitHub\\PokerCheatDeck\\PokerCheatDeck\\obj\\",
+        "projectPath": "D:\\Workspace\\WinFromsProject\\PokerChatDeck\\PokerCheatDeck\\PokerCheatDeck.csproj",
+        "packagesPath": "C:\\Users\\Seanan\\.nuget\\packages\\",
+        "outputPath": "D:\\Workspace\\WinFromsProject\\PokerChatDeck\\PokerCheatDeck\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Administrator\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Seanan\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -63,7 +63,7 @@
               "privateAssets": "none"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.200\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.201\\RuntimeIdentifierGraph.json"
         }
       }
     }
