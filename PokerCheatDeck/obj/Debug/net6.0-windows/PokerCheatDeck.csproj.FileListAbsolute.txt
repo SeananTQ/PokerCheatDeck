@@ -70,7 +70,6 @@ D:\Workspace\WinFromsProject\PokerChatDeck\PokerCheatDeck\bin\Debug\net6.0-windo
 D:\Workspace\WinFromsProject\PokerChatDeck\PokerCheatDeck\bin\Debug\net6.0-windows\DocumentFormat.OpenXml.dll
 D:\Workspace\WinFromsProject\PokerChatDeck\PokerCheatDeck\bin\Debug\net6.0-windows\ExcelNumberFormat.dll
 D:\Workspace\WinFromsProject\PokerChatDeck\PokerCheatDeck\obj\Debug\net6.0-windows\PokerCheatDeck.csproj.AssemblyReference.cache
-D:\Workspace\WinFromsProject\PokerChatDeck\PokerCheatDeck\obj\Debug\net6.0-windows\PokerTest.Form1.resources
 D:\Workspace\WinFromsProject\PokerChatDeck\PokerCheatDeck\obj\Debug\net6.0-windows\PokerCheatDeck.csproj.GenerateResource.cache
 D:\Workspace\WinFromsProject\PokerChatDeck\PokerCheatDeck\obj\Debug\net6.0-windows\PokerCheatDeck.GeneratedMSBuildEditorConfig.editorconfig
 D:\Workspace\WinFromsProject\PokerChatDeck\PokerCheatDeck\obj\Debug\net6.0-windows\PokerCheatDeck.AssemblyInfoInputs.cache
@@ -82,3 +81,7 @@ D:\Workspace\WinFromsProject\PokerChatDeck\PokerCheatDeck\obj\Debug\net6.0-windo
 D:\Workspace\WinFromsProject\PokerChatDeck\PokerCheatDeck\obj\Debug\net6.0-windows\PokerCheatDeck.pdb
 D:\Workspace\WinFromsProject\PokerChatDeck\PokerCheatDeck\obj\Debug\net6.0-windows\PokerCheatDeck.genruntimeconfig.cache
 D:\Workspace\WinFromsProject\PokerChatDeck\PokerCheatDeck\obj\Debug\net6.0-windows\ref\PokerCheatDeck.dll
+D:\Workspace\WinFromsProject\PokerChatDeck\PokerCheatDeck\obj\Debug\net6.0-windows\PokerCheatDeck.Properties.Resources.resources
+D:\Workspace\WinFromsProject\PokerChatDeck\PokerCheatDeck\obj\Debug\net6.0-windows\PokerCheatDeck.Form_About.resources
+D:\Workspace\WinFromsProject\PokerChatDeck\PokerCheatDeck\obj\Debug\net6.0-windows\PokerCheatDeck.Form_Ranking.resources
+D:\Workspace\WinFromsProject\PokerChatDeck\PokerCheatDeck\obj\Debug\net6.0-windows\PokerTest.Form_Main.resources

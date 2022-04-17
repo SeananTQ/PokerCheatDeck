@@ -21,17 +21,15 @@ namespace MainLogic
         
        public void  Star(string loadPath,string savePath)
         {
-            excelHelper.ImportExcelPath=loadPath;
-            excelHelper.ExportExcelPath=savePath;
 
-            excelHelper.OpenExcel();
+            excelHelper.OpenExcel(loadPath);
             excelHelper.LoadSheet();
 
             TableBaseClass rankingTabel = new("Test");
             excelHelper.BuildTabel(ref rankingTabel);
             //excelHelper.ImportExcelToString();
 
-            excelHelper.CloseExcel();
+            excelHelper.SaveExcel(savePath);
 
             DebugClass.Log( excelHelper.resultString);
         }

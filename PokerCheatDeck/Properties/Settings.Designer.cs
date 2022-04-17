@@ -46,5 +46,53 @@ namespace PokerCheatDeck.Properties {
                 this["savePath"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string modelLoadPath {
+            get {
+                return ((string)(this["modelLoadPath"]));
+            }
+            set {
+                this["modelLoadPath"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string rankingTableSavePath {
+            get {
+                return ((string)(this["rankingTableSavePath"]));
+            }
+            set {
+                this["rankingTableSavePath"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string rankingTableLoadPath {
+            get {
+                return ((string)(this["rankingTableLoadPath"]));
+            }
+            set {
+                this["rankingTableLoadPath"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string modelSheetName {
+            get {
+                return ((string)(this["modelSheetName"]));
+            }
+            set {
+                this["modelSheetName"] = value;
+            }
+        }
     }
 }

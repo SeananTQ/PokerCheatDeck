@@ -18,20 +18,6 @@ namespace ExcelTools
         public static readonly int DataCol = 2;
 
         public string? resultString = "";
-        private string importExcelPath = "E:\\import.xlsx";
-        private string exportExcelPath = "E:\\export.xlsx";
-
-        public string ImportExcelPath
-        {
-            get { return importExcelPath; }
-            set { importExcelPath = value; }
-        }
-
-        public string ExportExcelPath
-        {
-            get { return exportExcelPath; }
-            set { exportExcelPath = value; }
-        }
 
         private IXLWorkbook WorkBook;
         private IXLWorksheet WorkSheet;
@@ -44,7 +30,7 @@ namespace ExcelTools
             //WorkSheet = WorkBook.Worksheets.Add("Sheet1");
         }
 
-        public void OpenExcel()
+        public void OpenExcel(string importExcelPath)
         {
             WorkBook = new XLWorkbook(importExcelPath);
         }
@@ -102,9 +88,14 @@ namespace ExcelTools
         }
 
 
-        public void CloseExcel()
+        public void SaveExcel(string exportExcelPath)
         {
             WorkBook.SaveAs(exportExcelPath);
+            WorkBook.Dispose();
+        }
+
+        public void CloseExcel()
+        {
             WorkBook.Dispose();
         }
 

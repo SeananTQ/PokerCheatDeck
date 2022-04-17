@@ -11,6 +11,12 @@ namespace ExcelTools
         public string TableName { get; set; }
         public List<Dictionary<string, object>> dataSource;
 
+        public string SheetName {
+            get
+            {
+                return TableName;
+            }
+        }
         public TableBaseClass(string tableName)
         {
             TableName = tableName;
