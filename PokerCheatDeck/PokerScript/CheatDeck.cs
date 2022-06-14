@@ -37,11 +37,11 @@ namespace TexasHoldem
                                                                          };
 
         private IList<Card> listOfCards;
-
+        private IList<Card> currentDeckCards;
         private int cardIndex;
+        private bool shuffleModel = true;
 
-
-        private Card dogCard;
+        //private Card dogCard;
 
 
         static CheatDeck()
@@ -59,17 +59,42 @@ namespace TexasHoldem
             AllCards = cards.AsReadOnly();
         }
 
-        public CheatDeck()
+        public CheatDeck(bool shuffle = true)
         {
-            InitCardList();
+            shuffleModel = shuffle;
+            InitListOfCards();
+            InitCurrentDeck();
         }
 
 
-        private void InitCardList()
+        private void InitCurrentDeck()
         {
-            //洗牌
-            this.listOfCards = AllCards.Shuffle().ToList();
+            if (shuffleModel)
+            {
+                //洗牌
+                this.currentDeckCards = AllCards.Shuffle().ToList();
+            }
+            else
+            {
+                this.currentDeckCards = AllCards.ToList();
+            }
+            //补牌
             this.cardIndex = AllCards.Count;
+        }
+
+        private void InitListOfCards()
+        {
+            if (shuffleModel)
+            {
+                //洗牌
+                this.listOfCards = AllCards.Shuffle().ToList();
+            }
+            else
+            {
+                this.listOfCards = AllCards.ToList();
+            }
+            ////补牌
+            //this.cardIndex = AllCards.Count;
         }
 
         //抓牌
@@ -78,13 +103,181 @@ namespace TexasHoldem
             if (this.cardIndex == 0)
             {
                 //牌库空了
-
+                InitCurrentDeck();
             }
 
             this.cardIndex--;
-            var card = this.listOfCards[this.cardIndex];
+            var card = this.currentDeckCards[this.cardIndex];
             return card;
         }
+
+        //根据枚举名调用对应方法，然后返回指定牌型的代码列表
+        public List<string> GetSpecificHandRankTypeCardCodes(string handRankTypeName, Card? keyCardName = null)
+        {
+            var cards = GetSpecificHandRankTypeCards(handRankTypeName, keyCardName);
+            List<string> codes = new List<string>();
+
+            //将index0与2，1与3进行交换
+            var temp = cards[0];
+            cards[0] = cards[2];
+            cards[2] = temp;
+
+            temp = cards[1];
+            cards[1] = cards[3];
+            cards[3] = temp;
+
+
+
+            //显示原码
+            // codes = cards.Select(card => card.GetCardCode()).ToList();
+
+          
+            for (int i = 0; i < cards.Count; i++)
+            {
+                var tempStr = "pk" + (i + 1) + "_" + cards[i].GetCardCode();
+                tempStr = PokerCodeIndexTable.pkIndexDict[tempStr];
+                codes.Add(tempStr);
+            }
+            return codes;
+        }
+
+
+        //根据参数中的枚举名，调用对应方法，然后返回指定的牌型
+        public IList<Card> GetSpecificHandRankTypeCards2(string handRankTypeName, Card? keyCard = null)
+        {
+            IList<Card> result = new List<Card>();
+
+            //根据名字得到枚举中的对应项
+            var handType = (HandRankType)Enum.Parse(typeof(HandRankType), handRankTypeName);
+
+            var cardCount = 7;
+            //根据枚举值，调用对应的方法
+            switch (handType)
+            {
+                case HandRankType.HIGH_CARD:
+                    result = this.GetHighCards(cardCount, keyCard);
+                    break;
+                case HandRankType.PAIR:
+                    result = this.Get2KindCards(cardCount, keyCard);
+                    break;
+                case HandRankType.TWO_PAIR:
+                    result = this.GetTwoPairsCards(cardCount, keyCard);
+                    break;
+                case HandRankType.THREE_OF_A_KIND:
+                    result = this.Get3KindCards(cardCount, keyCard);
+                    break;
+                case HandRankType.STRAIGHT:
+                    result = this.GetStraightCards(cardCount, keyCard);
+                    break;
+                case HandRankType.FLUSH:
+                    result = this.GetFlushCards(cardCount, keyCard);
+                    break;
+                case HandRankType.FULL_HOUSE:
+                    result = this.GetFullHouseCards(cardCount, keyCard);
+                    break;
+                case HandRankType.FOUR_OF_A_KIND:
+                    result = this.Get4KindCards(cardCount, keyCard);
+                    break;
+                case HandRankType.STRAIGHT_FLUSH:
+                    //判断一下keyCard是否大于等于10，如果是，则不能生成普通同花顺，改为生成皇家同花顺
+                    if (keyCard.Number >= CardNumber.Ten)
+                    {
+                        result = this.GetStraightFlushCards(cardCount, keyCard);
+                    }
+                    else
+                    {
+                        result = this.GetStraightFlushCards(cardCount, keyCard);
+                    }
+                    break;
+                case HandRankType.ROYAL_FLUSH:
+                    //判断一下keyCard是否小于10，如果是，则不能生成皇家同花顺，改为生成普通同花顺
+                    if (keyCard.Number < CardNumber.Ten)
+                    {
+                        result = this.GetStraightFlushCards(cardCount, keyCard);
+                    }
+                    else
+                    {
+                        result = this.GetStraightFlushCards(cardCount, keyCard);
+                    }
+                    break;
+                default:
+                    result = this.GetHighCards(cardCount, keyCard);
+                    break;
+            }
+
+            //将index0与2，1与3进行交换
+            var temp = result[0];
+            result[0] = result[2];
+            result[2] = temp;
+            
+            temp = result[1];
+            result[1] = result[3];
+            result[3] = temp;
+
+            return result;
+        }
+
+
+
+
+
+
+        //根据参数中的枚举名，调用对应方法，然后返回指定的牌型
+        public IList<Card> GetSpecificHandRankTypeCards(string handRankTypeName, Card? keyCard = null)
+        {
+            //根据名字得到枚举中的对应项
+            var handType = (HandRankType)Enum.Parse(typeof(HandRankType), handRankTypeName);
+
+            var cardCount = 7;
+            //根据枚举值，调用对应的方法
+            switch (handType)
+            {
+                case HandRankType.HIGH_CARD:
+                    return this.GetHighCards(cardCount, keyCard);
+                case HandRankType.PAIR:
+                    return this.Get2KindCards(cardCount, keyCard);
+                case HandRankType.TWO_PAIR:
+                    return this.GetTwoPairsCards(cardCount, keyCard);
+                case HandRankType.THREE_OF_A_KIND:
+                    return this.Get3KindCards(cardCount, keyCard);
+                case HandRankType.STRAIGHT:
+                    return this.GetStraightCards(cardCount, keyCard);
+                case HandRankType.FLUSH:
+                    return this.GetFlushCards(cardCount, keyCard);
+                case HandRankType.FULL_HOUSE:
+                    return this.GetFullHouseCards(cardCount, keyCard);
+                case HandRankType.FOUR_OF_A_KIND:
+                    return this.Get4KindCards(cardCount, keyCard);
+                case HandRankType.STRAIGHT_FLUSH:
+                    //判断一下keyCard是否大于等于10，如果是，则不能生成普通同花顺，改为生成皇家同花顺
+                    if (keyCard.Number >= CardNumber.Ten)
+                    {
+                        return this.GetRoyalFlushCards(cardCount, keyCard);
+                    }
+                    else
+                    {
+                        return this.GetStraightFlushCards(cardCount, keyCard);
+                    }
+                    return this.GetStraightFlushCards(cardCount, keyCard);
+                case HandRankType.ROYAL_FLUSH:
+                    {
+                        //判断一下keyCard是否小于10，如果是，则不能生成皇家同花顺，改为生成普通同花顺
+                        if (keyCard.Number < CardNumber.Ten)
+                        {
+                            return this.GetStraightFlushCards(cardCount, keyCard);
+                        }
+                        else
+                        {
+                            return this.GetRoyalFlushCards(cardCount, keyCard);
+                        }
+                    }
+                default:
+                    return this.GetHighCards(cardCount, keyCard);
+            }
+        }
+
+
+
 
         //在HandRankType中随机一项，然后调用对应方法，并返回该方法的返回值
         public IList<Card> GetRandomHandType(int cardCount)
@@ -137,7 +330,7 @@ namespace TexasHoldem
         //随机得到一个高分牌型
         public IList<Card> GetHighCards(int cardCount, Card? keyCard = null)
         {
-            InitCardList();
+            InitListOfCards();
             if (keyCard == null)
             {
                 //通过白名限定高分牌
@@ -150,11 +343,14 @@ namespace TexasHoldem
                     whiteList.Add(new Card(i, CardNumber.Jack));
                     whiteList.Add(new Card(i, CardNumber.Ten));
                 }
-                this.dogCard = whiteList[RandomProvider.Next(0, whiteList.Count)];
+                keyCard = whiteList[RandomProvider.Next(0, whiteList.Count)];
             }
             IList<Card> result = new List<Card>();
-            result.Add(this.dogCard);
+            result.Add(keyCard);
             result = FillCardList(result, cardCount);
+            //将keyCard移动至列表中第5个位置
+            result.Remove(keyCard);
+            result.Insert(4, keyCard);
             return result;
         }
 
@@ -162,72 +358,90 @@ namespace TexasHoldem
         //随机得到一个四条牌型
         public IList<Card> Get4KindCards(int cardCount, Card? keyCard = null)
         {
-            InitCardList();
+            InitListOfCards();
             if (keyCard == null)
-                this.dogCard = GetDogCard();
-            var result = GetNKindCards(this.dogCard, 4);
+                keyCard = GetDogCard();
+            var result = GetNKindCards(keyCard, 4);
             result = FillCardList(result, cardCount);
+            //将keyCard移动至列表中第5个位置
+            result.Remove(keyCard);
+            result.Insert(4, keyCard);
             return result;
         }
 
         //随机得到一个三条牌
         public IList<Card> Get3KindCards(int cardCount, Card? keyCard = null)
         {
-            InitCardList();
+            InitListOfCards();
             if (keyCard == null)
-                this.dogCard = GetDogCard();
-            var result = GetNKindCards(this.dogCard, 3);
+                keyCard = GetDogCard();
+            var result = GetNKindCards(keyCard, 3);
             result = FillCardList(result, cardCount);
+            //将keyCard移动至列表中第5个位置
+            result.Remove(keyCard);
+            result.Insert(4, keyCard);
             return result;
         }
 
         //随机得到一个对子牌
         public IList<Card> Get2KindCards(int cardCount, Card? keyCard = null)
         {
-            InitCardList();
+            InitListOfCards();
             if (keyCard == null)
-                this.dogCard = GetDogCard();
-            var result = GetNKindCards(this.dogCard, 2);
+                keyCard = GetDogCard();
+            var result = GetNKindCards(keyCard, 2);
             result = FillCardList(result, cardCount);
+            //将keyCard移动至列表中第5个位置
+            result.Remove(keyCard);
+            result.Insert(4, keyCard);
             return result;
         }
 
         //随机得到一个两对条牌
         public IList<Card> GetTwoPairsCards(int cardCount, Card? keyCard = null)
         {
-            InitCardList();
+            InitListOfCards();
             if (keyCard == null)
-                this.dogCard = GetDogCard();
-            var result = GetNXNYCards(this.dogCard, 2, 2);
+                keyCard = GetDogCard();
+            var result = GetNXNYCards(keyCard, 2, 2);
             result = FillCardList(result, cardCount);
+            //将keyCard移动至列表中第5个位置
+            result.Remove(keyCard);
+            result.Insert(4, keyCard);
             return result;
         }
 
         //随机得到一个葫芦牌
         public IList<Card> GetFullHouseCards(int cardCount, Card? keyCard = null)
         {
-            InitCardList();
+            InitListOfCards();
             if (keyCard == null)
-                this.dogCard = GetDogCard();
-            var result = GetNXNYCards(this.dogCard, 3, 2);
+                keyCard = GetDogCard();
+            var result = GetNXNYCards(keyCard, 3, 2);
             result = FillCardList(result, cardCount);
+            //将keyCard移动至列表中第5个位置
+            result.Remove(keyCard);
+            result.Insert(4, keyCard);
             return result;
         }
 
         //得到一个同花牌
         public IList<Card> GetFlushCards(int cardCount, Card? keyCard = null)
         {
-            InitCardList();
+            InitListOfCards();
             if (keyCard == null)
-                this.dogCard = GetDogCard();
+                keyCard = GetDogCard();
             IList<Card> result = new List<Card>();
-            result.Add(this.dogCard);
+            result.Add(keyCard);
             result = FillCardList(result, 5);
             foreach (var v in result)
             {
-                v.Suit = this.dogCard.Suit;
+                v.Suit = keyCard.Suit;
             }
             result = FillCardList(result, cardCount);
+            //将keyCard移动至列表中第5个位置
+            result.Remove(keyCard);
+            result.Insert(4, keyCard);
             return result;
         }
 
@@ -238,18 +452,21 @@ namespace TexasHoldem
         //随机得到一个顺子牌
         public IList<Card> GetStraightCards(int cardCount, Card? keyCard = null)
         {
-            InitCardList();
+            InitListOfCards();
             if (keyCard == null)
-                this.dogCard = GetDogCard();
-            var result = GetStraightCards(this.dogCard);
+                keyCard = GetDogCard();
+            var result = GetStraightCards(keyCard);
             result = FillCardList(result, cardCount);
+            //将keyCard移动至列表中第5个位置
+            result.Remove(keyCard);
+            result.Insert(4, keyCard);
             return result;
         }
 
         //随机得到一个同花顺
         public IList<Card> GetStraightFlushCards(int cardCount, Card? keyCard = null)
         {
-            InitCardList();
+            InitListOfCards();
             if (keyCard == null)
             {
                 //通过黑名单排除掉皇家同花顺
@@ -260,23 +477,26 @@ namespace TexasHoldem
                     blackList.Add(new Card(i, CardNumber.King));
                     blackList.Add(new Card(i, CardNumber.Queen));
                 }
-                this.dogCard = GetDogCard(blackList);
+                keyCard = GetDogCard(blackList);
             }
-            var tempResult = GetStraightCards(this.dogCard);
+            var tempResult = GetStraightCards(keyCard);
 
             IList<Card> result = new List<Card>();
             foreach (var i in tempResult)
             {
-                result.Add(new Card(this.dogCard.Suit, i.Number));
+                result.Add(new Card(keyCard.Suit, i.Number));
             }
             result = FillCardList(result, cardCount);
+            //将keyCard移动至列表中第5个位置
+            result.Remove(keyCard);
+            result.Insert(4, keyCard);
             return result;
         }
 
         //随机得到一个皇家同花顺
         public IList<Card> GetRoyalFlushCards(int cardCount, Card? keyCard = null)
         {
-            InitCardList();
+            InitListOfCards();
             if (keyCard == null)
             {
                 //通过白名限定皇家同花顺
@@ -287,17 +507,20 @@ namespace TexasHoldem
                     whiteList.Add(new Card(i, CardNumber.King));
                     whiteList.Add(new Card(i, CardNumber.Queen));
                 }
-                this.dogCard = whiteList[RandomProvider.Next(0, whiteList.Count)];
+                keyCard = whiteList[RandomProvider.Next(0, whiteList.Count)];
             }
-            var tempResult = GetStraightCards(this.dogCard);
+            var tempResult = GetStraightCards(keyCard);
 
 
             IList<Card> result = new List<Card>();
             foreach (var i in tempResult)
             {
-                result.Add(new Card(this.dogCard.Suit, i.Number));
+                result.Add(new Card(keyCard.Suit, i.Number));
             }
             result = FillCardList(result, cardCount);
+            //将keyCard移动至列表中第5个位置
+            result.Remove(keyCard);
+            result.Insert(4, keyCard);
             return result;
         }
 
@@ -310,7 +533,7 @@ namespace TexasHoldem
         private IList<Card> FillCardList(IList<Card> cards, int maxCount)
         {
             List<Card> result = new();
-            InitCardList();
+            InitListOfCards();
             List<CardSuit> blackList_suit = new();
             List<CardNumber> blackList_number = new();
 
@@ -323,21 +546,24 @@ namespace TexasHoldem
             int tempIndex2 = AllCardNumbers.IndexOf(cards.Last().Number);
             tempIndex1 = Math.Max(0, tempIndex1 - 1);
             tempIndex2 = Math.Min(AllCardNumbers.Count - 1, tempIndex2 + 1);
-
+            //为了防止出现顺子，将原始牌两端相邻的牌加入黑名单
             blackList_number.Add(AllCardNumbers[tempIndex1]);
             blackList_number.Add(AllCardNumbers[tempIndex2]);
+            //为了防止出现同花，将原始牌中0号牌的花色加入黑名单
             blackList_suit.Add(cards[0].Suit);
 
             blackList_number = AllCardNumbers.Except(blackList_number).ToList();
             blackList_suit = AllCardSuits.Except(blackList_suit).ToList();
 
-
+            // 注意，在此处黑名单变成了可选名单
             for (int i = 0; i < maxCount - cards.Count; i++)
             {
                 var tempCard = new Card(blackList_suit.GetRandomElement(), blackList_number.GetRandomElement());
                 result.Add(tempCard);
                 blackList_number.Remove(tempCard.Number);
             }
+
+            //先将补充牌放进列表，再将原始牌放进列表，从而使得原始牌在补充牌之后
             result.AddRange(cards);
             return result;
         }
@@ -425,4 +651,4 @@ namespace TexasHoldem
 
     }
 }
-        
+

@@ -50,36 +50,36 @@ namespace PokerCheatDeck.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string modelLoadPath {
+        public string pokerExcelLoadPath {
             get {
-                return ((string)(this["modelLoadPath"]));
+                return ((string)(this["pokerExcelLoadPath"]));
             }
             set {
-                this["modelLoadPath"] = value;
+                this["pokerExcelLoadPath"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string rankingTableSavePath {
+        public string pokerExcelSavePath {
             get {
-                return ((string)(this["rankingTableSavePath"]));
+                return ((string)(this["pokerExcelSavePath"]));
             }
             set {
-                this["rankingTableSavePath"] = value;
+                this["pokerExcelSavePath"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string rankingTableLoadPath {
+        public string rankingSheetName {
             get {
-                return ((string)(this["rankingTableLoadPath"]));
+                return ((string)(this["rankingSheetName"]));
             }
             set {
-                this["rankingTableLoadPath"] = value;
+                this["rankingSheetName"] = value;
             }
         }
         
@@ -92,6 +92,30 @@ namespace PokerCheatDeck.Properties {
             }
             set {
                 this["modelSheetName"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("99")]
+        public int createCount {
+            get {
+                return ((int)(this["createCount"]));
+            }
+            set {
+                this["createCount"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string pokerExcelFileName {
+            get {
+                return ((string)(this["pokerExcelFileName"]));
+            }
+            set {
+                this["pokerExcelFileName"] = value;
             }
         }
     }

@@ -8,16 +8,22 @@
     <Setting Name="savePath" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="modelLoadPath" Type="System.String" Scope="User">
+    <Setting Name="pokerExcelLoadPath" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="rankingTableSavePath" Type="System.String" Scope="User">
+    <Setting Name="pokerExcelSavePath" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="rankingTableLoadPath" Type="System.String" Scope="User">
+    <Setting Name="rankingSheetName" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="modelSheetName" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="createCount" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">99</Value>
+    </Setting>
+    <Setting Name="pokerExcelFileName" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
   </Settings>

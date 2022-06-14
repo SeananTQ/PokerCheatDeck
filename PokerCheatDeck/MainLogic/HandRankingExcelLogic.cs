@@ -5,53 +5,68 @@ using System.Text;
 using System.Threading.Tasks;
 using ClosedXML.Excel;
 using ExcelTools;
+using PokerCheatDeck.Properties;
+using SeananTools;
+using PokerTable;
+using TexasHoldem;
 
 namespace MainLogic
 {
     internal class HandRankingExcelLogic
     {
         private int createCount;
-        private string sheetName;
-        private string modelLoadPath;
-        private string rankingLoadPath;
-        private string rankingSavePath;
+        private string rankingObjectSheetName;
+        private string excellLoadPath;
+        private string excelSavePath;
 
-        private ExcelHelper _modelExcelHelper;
-        private ExcelHelper _rankingExcelHelper;
+        private ExcelHelper _excelHelper;
 
-        public HandRankingExcelLogic(string sheetName, string modelLoadPath, string rankingLoadPath, string rankingSavePath, int createCount)
+        
+        //构造方法，从Settings中加载数组，为字段赋值
+        public HandRankingExcelLogic()
         {
-            this.sheetName = sheetName;
-            this.modelLoadPath = modelLoadPath;
-            this.rankingLoadPath = rankingLoadPath;
-            this.rankingSavePath = rankingSavePath;
-            this.createCount = createCount;
+            //从Settings中加载数组，为字段赋值
+            this.excellLoadPath = Settings.Default.pokerExcelLoadPath;
+            this.excelSavePath = Settings.Default.pokerExcelSavePath;
+            this.createCount = Settings.Default.createCount;
 
+        }
+
+        public void Start()
+        {
             MainLogic();
         }
 
-        public void MainLogic()
+        private void MainLogic()
         {
-            _modelExcelHelper = new();
-            _modelExcelHelper.OpenExcel(modelLoadPath);
-            _modelExcelHelper.LoadSheet(sheetName);
-            TableBaseClass modelTabel = new(sheetName);
-            _modelExcelHelper.BuildTabel(ref modelTabel);
-            _modelExcelHelper.CloseExcel();
-            
-            modelTabel.r
+            RankingModelTable modelTabel = new RankingModelTable("");
+            RankingInstanceTable instanceTable = new RankingInstanceTable("");
+
+            _excelHelper = new ExcelHelper(modelTabel);
+            _excelHelper.OpenExcel(excellLoadPath);
+            _excelHelper.LoadSheet(modelTabel.SheetName);
+            _excelHelper.LoadSheet(instanceTable.SheetName);
+
+            modelTabel.BuildData(_excelHelper.BuildTabel(_excelHelper.GetWorkSheetByName(modelTabel.SheetName)));
+            //instanceTable.BuildData(_excelHelper.BuildTabel(_excelHelper.GetWorkSheetByName(instanceTable.SheetName)));
 
 
+            //创建作弊牌库
+            CheatDeck cheatDeck = new(false);
+            List<List<string>> cardCodesList = new();
 
-            
+            //按照createCount循环随机一个牌型
+            for (int i = 0; i < createCount; i++)
+            {
+                var handRankTypeName = modelTabel.GetRandomRanking();
+                //根据指定牌型名称随机一个牌型，将数据存入表中
+                instanceTable.AddObject(handRankTypeName, cheatDeck.GetSpecificHandRankTypeCardCodes(handRankTypeName, cheatDeck.GetNextCard()), modelTabel.GetEthByRankingName(handRankTypeName));
+            }
 
-            _rankingExcelHelper = new();
-            _rankingExcelHelper.OpenExcel(rankingLoadPath);
-            _rankingExcelHelper.LoadSheet();
-            TableBaseClass rankingTabel = new("");
-            _rankingExcelHelper.BuildTabel(ref rankingTabel);
-            _rankingExcelHelper.SaveExcel(rankingSavePath);
+            _excelHelper.WriteTabel(instanceTable.BuildData(), instanceTable.Index_dataStartRow, _excelHelper.GetWorkSheetByName(instanceTable.SheetName));
 
+
+            _excelHelper.SaveExcel(Settings.Default.pokerExcelSavePath+"\\"+Settings.Default.pokerExcelFileName);
         }
     }
 }

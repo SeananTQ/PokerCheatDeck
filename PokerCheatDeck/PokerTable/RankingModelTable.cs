@@ -5,20 +5,24 @@ using ExcelTools;
 using SeananTools;
 
 
-namespace PokerExcel
+namespace PokerTable
 {
-    public class PokerHandRankingTable : TableBaseClass
-    {
-
+    public class RankingModelTable : TableBaseClass
+    {   
+        
 
         private List<HandRankingObject> _rankingList;
         private int _totalWeight = 0;
 
-        public PokerHandRankingTable(string tableName) : base(tableName)
+        
+
+        public RankingModelTable(string tableName) : base(tableName)
         {
-            this.TableName = "pokerHandRanking";
+            TableName = "rankingModel";
         }
-     
+
+
+
         public override void BuildData(List<Dictionary<string, object>> dataList)
         {
             base.BuildData(dataList);
@@ -53,6 +57,18 @@ namespace PokerExcel
             return null;
         }
 
+        //根据牌型名称，返回其对应的eth
+        public int GetEthByRankingName(string name)
+        {
+            foreach (HandRankingObject ranking in _rankingList)
+            {
+                if (ranking.eunm == name)
+                {
+                    return ranking.eth;
+                }
+            }
+            return 0;
+        }
 
 
         private class HandRankingObject
@@ -62,30 +78,48 @@ namespace PokerExcel
             public string name;
             public int weight;
             public string eunm;
-            public string remarks;
+            public int eth;
+    
 
-            public HandRankingObject(int id, int ranking, string name, int weight, string eunm, string remarks)
+            public HandRankingObject(int id, int ranking, string name, int weight, string eunm,int eth)
             {
                 this.id = id;
                 this.ranking = ranking;
                 this.name = name;
                 this.weight = weight;
                 this.eunm = eunm;
-                this.remarks = remarks;
-            }          
-            
-            public HandRankingObject(Dictionary<string,object> keyValuePair)
-            {
-                this.id = (int)keyValuePair["id"];
-                this.ranking = (int)keyValuePair["ranking"];
-                this.name = (string)keyValuePair["name"];
-                this.weight = (int)keyValuePair["weight"];
-                this.eunm = (string)keyValuePair["eunm"];
-                this.remarks = (string)keyValuePair["remarks"];
+
             }
 
-
-
+            //将数据词典转化为数据对象
+            public HandRankingObject(Dictionary<string,object> keyValuePair)
+            {
+                //在词典中找到与字段名相同的key，为所有字段赋值
+                foreach (KeyValuePair<string, object> kvp in keyValuePair)
+                {
+                    switch (kvp.Key)
+                    {
+                        case "id":
+                            id = Convert.ToInt32(kvp.Value);
+                            break;
+                        case "ranking":
+                            ranking = Convert.ToInt32(kvp.Value);
+                            break;
+                        case "name":
+                            name = kvp.Value.ToString();
+                            break;
+                        case "weight":
+                            weight = Convert.ToInt32(kvp.Value);
+                            break;
+                        case "eunm":
+                            eunm = kvp.Value.ToString();
+                            break;
+                        case "eth":
+                            eth = Convert.ToInt32(kvp.Value);
+                            break;
+                    }
+                }
+            }
         }
     }
 }

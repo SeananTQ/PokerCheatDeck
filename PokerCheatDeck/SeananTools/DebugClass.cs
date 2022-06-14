@@ -14,5 +14,10 @@ namespace SeananTools
             Text += str;        
         }
 
+        public static void Logln(string str)
+        {
+            Text += str+"\r\n";
+        }
+
     }
 }
